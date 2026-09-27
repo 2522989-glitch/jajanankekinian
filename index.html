@@ -1,18 +1,779 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>MEMORYBOX — Save the moment</title><link rel="stylesheet" href="css/style.css"></head>
-<body class="landing">
-<main class="landing-page">
-  <nav class="landing-nav"><a class="brand" href="index.html">MEMORY<span>BOX</span></a><div><a href="login.html" class="nav-link">Login</a><a href="register.html" class="btn btn-small">Get Started</a></div></nav>
-  <section class="hero">
-    <div class="hero-copy"><p class="eyebrow">YOUR DIGITAL SCRAPBOOK</p><h1>Save the moment,<br><em>keep the memory.</em></h1><p class="hero-text">A cozy little space for your favorite photos, stories, places, moods, and the moments you never want to forget.</p><div class="hero-actions"><a class="btn" href="register.html">Get Started <span>→</span></a><a class="text-btn" href="login.html">I already have an account</a></div></div>
-    <div class="polaroid-stage" aria-hidden="true">
-      <div class="polaroid p1"><div class="photo-placeholder photo-one">✿</div><small>little moments</small></div>
-      <div class="polaroid p2"><div class="photo-placeholder photo-two">☁</div><small>good days</small></div>
-      <div class="polaroid p3"><div class="photo-placeholder photo-three">♡</div><small>dear memories</small></div>
-      <span class="sticker">memories<br>matter ♡</span>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resep Jajanan Kekinian</title>
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- ========================================== -->
+  <!-- CSS STYLES                                 -->
+  <!-- ========================================== -->
+  <style>
+    :root {
+      --primary: #ff6b6b;
+      --primary-hover: #ee5253;
+      --secondary: #48dbfb;
+      --dark: #2d3436;
+      --light: #f7f1e3;
+      --white: #ffffff;
+      --gray: #8395a7;
+      --border-radius: 12px;
+      --box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: var(--white);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary { background: var(--primary); color: var(--white); }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+    .btn-outline:hover { background: var(--primary); color: var(--white); }
+    .btn-danger { background: #ff4757; color: var(--white); }
+    .btn-danger:hover { background: #ff6b81; }
+    .btn-secondary { background: var(--gray); color: var(--white); }
+    .btn-sm { padding: 0.3rem 0.8rem; font-size: 0.85rem; }
+
+    /* Layout & Containers */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .view-section { display: none; }
+    .view-section.active { display: block; }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: linear-gradient(135deg, #ff9ff3, #feca57);
+      border-radius: var(--border-radius);
+      color: var(--white);
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+
+    /* Search Bar */
+    .search-box {
+      max-width: 500px;
+      margin: -1.5rem auto 2rem auto;
+      display: flex;
+      box-shadow: var(--box-shadow);
+      border-radius: 30px;
+      overflow: hidden;
+      background: var(--white);
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .search-box button {
+      padding: 0 1.5rem;
+      background: var(--primary);
+      border: none;
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    /* Recipe Grid */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .recipe-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .recipe-card:hover { transform: translateY(-5px); }
+
+    .recipe-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .recipe-card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .recipe-card h3 { margin-bottom: 0.5rem; }
+    .recipe-card p { color: var(--gray); font-size: 0.9rem; flex-grow: 1; margin-bottom: 1rem; }
+
+    /* Forms & Modals */
+    .auth-card, .form-card {
+      background: var(--white);
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .dynamic-list-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Admin Table */
+    .admin-table-container {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* Loading Spinner */
+    .loading-spinner {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray);
+    }
+
+    /* Alerts */
+    .alert {
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    .alert-danger { background: #ffe0e0; color: #d63031; }
+    .alert-success { background: #e0ffe0; color: #00b894; }
+
+    /* Footer */
+    footer {
+      background: var(--white);
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+      border-top: 1px solid #eee;
+      color: var(--gray);
+    }
+
+    .footer-admin-link {
+      color: #dfe6e9;
+      text-decoration: none;
+      font-size: 0.75rem;
+      margin-top: 10px;
+      display: inline-block;
+    }
+    .footer-admin-link:hover { color: var(--gray); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar { flex-direction: column; gap: 10px; }
+      .hero h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="#" class="brand" onclick="switchView('home')">
+      <i class="fa-solid fa-utensils"></i> Resep Jajanan
+    </a>
+    <div class="nav-actions" id="nav-actions">
+      <!-- Tombol Navigasi Dinamis Direset via JS -->
     </div>
-  </section>
-  <section class="landing-note"><span>✦</span> Keep your memories close, beautifully.</section>
-</main>
-<script src="js/storage.js"></script><script src="js/app.js"></script></body></html>
+  </nav>
+
+  <div class="container">
+    <!-- ALERT BOX -->
+    <div id="alert-box" class="alert"></div>
+
+    <!-- 1. HALAMAN UTAMA (USER VIEW) -->
+    <section id="view-home" class="view-section active">
+      <div class="hero">
+        <h1>Resep Jajanan Kekinian</h1>
+        <p>Temukan resep camilan hits dan cara membuatnya di rumah!</p>
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Cari resep (contoh: Seblak, Cireng)...">
+        <button onclick="handleSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+
+      <div id="loading-home" class="loading-spinner">
+        <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+        <p>Memuat resep lezat...</p>
+      </div>
+
+      <div class="recipe-grid" id="recipe-container">
+        <!-- Resep di-render dari Firestore -->
+      </div>
+    </section>
+
+    <!-- 2. HALAMAN DETAIL RESEP -->
+    <section id="view-detail" class="view-section">
+      <button class="btn btn-secondary" onclick="switchView('home')" style="margin-bottom: 1.5rem;">
+        <i class="fa-solid fa-arrow-left"></i> Kembali
+      </button>
+      <div class="form-card" style="max-width: 800px;">
+        <img id="detail-img" src="" alt="" style="width: 100%; height: 350px; object-fit: cover; border-radius: 12px; margin-bottom: 1.5rem;">
+        <h1 id="detail-title" style="margin-bottom: 0.5rem;"></h1>
+        <p id="detail-desc" style="color: var(--gray); margin-bottom: 1.5rem;"></p>
+        
+        <hr style="margin-bottom: 1.5rem; border: none; border-top: 1px solid #eee;">
+        
+        <h3 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-list-check"></i> Bahan-bahan:</h3>
+        <ul id="detail-ingredients" style="margin-left: 1.5rem; margin-bottom: 1.5rem;"></ul>
+
+        <h3 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-kitchen-set"></i> Langkah Membuat:</h3>
+        <ol id="detail-steps" style="margin-left: 1.5rem;"></ol>
+      </div>
+    </section>
+
+    <!-- 3. HALAMAN LOGIN -->
+    <section id="view-login" class="view-section">
+      <div class="auth-card">
+        <h2 id="login-title" style="text-align: center; margin-bottom: 1.5rem;">Login Pengguna</h2>
+        <form id="form-login">
+          <input type="hidden" id="login-type" value="user">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="login-email" required placeholder="user@contoh.com">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="login-password" required placeholder="******">
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Masuk</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 4. DASHBOARD ADMIN -->
+    <section id="view-admin" class="view-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2>Dashboard Administrator</h2>
+        <button class="btn btn-primary" onclick="openRecipeForm()"><i class="fa-solid fa-plus"></i> Tambah Resep Baru</button>
+      </div>
+
+      <div class="admin-table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Gambar</th>
+              <th>Nama Resep</th>
+              <th>Deskripsi</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="admin-recipe-table">
+            <!-- Data tabel resep -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5. FORM TAMBAH/EDIT RESEP (ADMIN ONLY) -->
+    <section id="view-recipe-form" class="view-section">
+      <button class="btn btn-secondary" onclick="switchView('admin')" style="margin-bottom: 1.5rem;">
+        <i class="fa-solid fa-arrow-left"></i> Batal
+      </button>
+      <div class="form-card" style="max-width: 700px;">
+        <h2 id="form-recipe-title" style="margin-bottom: 1.5rem;">Tambah Resep</h2>
+        <form id="form-recipe">
+          <input type="hidden" id="recipe-id">
+          
+          <div class="form-group">
+            <label>Nama Resep</label>
+            <input type="text" id="recipe-name" required placeholder="Contoh: Seblak Bandung">
+          </div>
+
+          <div class="form-group">
+            <label>URL Gambar (Direct Link Gambar)</label>
+            <input type="url" id="recipe-image" required placeholder="https://images.unsplash.com/...">
+          </div>
+
+          <div class="form-group">
+            <label>Deskripsi Singkat</label>
+            <textarea id="recipe-desc" rows="3" required placeholder="Deskripsi jajanan..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Bahan-Bahan</label>
+            <div id="ingredients-list"></div>
+            <button type="button" class="btn btn-outline btn-sm" onclick="addIngredientInput()" style="margin-top: 5px;">+ Tambah Bahan</button>
+          </div>
+
+          <div class="form-group">
+            <label>Langkah-Langkah Pembuatan</label>
+            <div id="steps-list"></div>
+            <button type="button" class="btn btn-outline btn-sm" onclick="addStepInput()" style="margin-top: 5px;">+ Tambah Langkah</button>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Simpan Resep</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Resep Jajanan Kekinian. All rights reserved.</p>
+    <!-- Link Tersembunyi Admin sesuai Spesifikasi -->
+    <a href="#" class="footer-admin-link" onclick="openAdminLogin(event)">Admin Portal Access</a>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT LOGIC WITH FIREBASE SDK (ESM)   -->
+  <!-- ========================================== -->
+  <script type="module">
+    // Import Firebase SDKs
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+      getAuth, 
+      signInWithEmailAndPassword, 
+      signOut, 
+      onAuthStateChanged 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { 
+      getFirestore, 
+      collection, 
+      getDocs, 
+      getDoc, 
+      doc, 
+      addDoc, 
+      updateDoc, 
+      deleteDoc, 
+      serverTimestamp 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // -------------------------------------------------------------
+    // KONFIGURASI FIREBASE (Ubah dengan kredensial Firebase Anda)
+    // -------------------------------------------------------------
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Inisialisasi Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Dynamic State
+    let currentUser = null;
+    let currentUserRole = null;
+    let allRecipes = [];
+
+    // --- UTILS: Navigasi Tampilan ---
+    window.switchView = function(viewId) {
+      document.querySelectorAll('.view-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(`view-${viewId}`).classList.add('active');
+      window.scrollTo(0, 0);
+    };
+
+    function showAlert(msg, type = 'danger') {
+      const alertBox = document.getElementById('alert-box');
+      alertBox.className = `alert alert-${type}`;
+      alertBox.innerText = msg;
+      alertBox.style.display = 'block';
+      setTimeout(() => { alertBox.style.display = 'none'; }, 4000);
+    }
+
+    // --- AUTHENTICATION & ROLE MANAGEMENT ---
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      const navActions = document.getElementById('nav-actions');
+
+      if (user) {
+        // Ambil data Role dari Firestore /users/{uid}
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            currentUserRole = userDoc.data().role;
+          } else {
+            currentUserRole = "user";
+          }
+        } catch (e) {
+          currentUserRole = "user";
+        }
+
+        navActions.innerHTML = `
+          <span style="font-size:0.9rem;">Hi, <b>${user.email.split('@')[0]}</b> (${currentUserRole})</span>
+          ${currentUserRole === 'admin' ? '<button class="btn btn-outline btn-sm" onclick="switchView(\'admin\')">Dashboard Admin</button>' : ''}
+          <button class="btn btn-danger btn-sm" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        `;
+      } else {
+        currentUserRole = null;
+        navActions.innerHTML = `
+          <button class="btn btn-outline" onclick="openUserLogin()"><i class="fa-solid fa-user"></i> Login Pengguna</button>
+        `;
+      }
+
+      fetchRecipes();
+    });
+
+    window.openUserLogin = function() {
+      document.getElementById('login-title').innerText = "Login Pengguna";
+      document.getElementById('login-type').value = "user";
+      switchView('login');
+    };
+
+    window.openAdminLogin = function(e) {
+      if(e) e.preventDefault();
+      document.getElementById('login-title').innerText = "Portal Login Administrator";
+      document.getElementById('login-type').value = "admin";
+      switchView('login');
+    };
+
+    document.getElementById('form-login').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const pass = document.getElementById('login-password').value;
+      const targetRole = document.getElementById('login-type').value;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+        const uid = userCredential.user.uid;
+        
+        // Verifikasi Role Keamanan Frontend
+        const userDoc = await getDoc(doc(db, "users", uid));
+        const actualRole = userDoc.exists() ? userDoc.data().role : "user";
+
+        if (targetRole === 'admin' && actualRole !== 'admin') {
+          await signOut(auth);
+          showAlert("Akses ditolak. Halaman ini hanya dapat diakses administrator.");
+          return;
+        }
+
+        showAlert("Berhasil Login!", "success");
+        if (actualRole === 'admin') {
+          switchView('admin');
+        } else {
+          switchView('home');
+        }
+      } catch (err) {
+        showAlert("Login Gagal: " + err.message);
+      }
+    });
+
+    window.handleLogout = function() {
+      signOut(auth).then(() => {
+        showAlert("Berhasil Logout", "success");
+        switchView('home');
+      });
+    };
+
+    // --- FIRESTORE DATA HANDLING (READ) ---
+    async function fetchRecipes() {
+      const loading = document.getElementById('loading-home');
+      const container = document.getElementById('recipe-container');
+      const adminTable = document.getElementById('admin-recipe-table');
+
+      if (loading) loading.style.display = 'block';
+
+      try {
+        const querySnapshot = await getDocs(collection(db, "recipes"));
+        allRecipes = [];
+        querySnapshot.forEach((docSnap) => {
+          allRecipes.push({ id: docSnap.id, ...docSnap.data() });
+        });
+
+        renderHomeRecipes(allRecipes);
+        if (currentUserRole === 'admin') {
+          renderAdminRecipes(allRecipes);
+        }
+      } catch (err) {
+        showAlert("Gagal memuat resep dari database: " + err.message);
+      } finally {
+        if (loading) loading.style.display = 'none';
+      }
+    }
+
+    function renderHomeRecipes(recipes) {
+      const container = document.getElementById('recipe-container');
+      container.innerHTML = "";
+
+      if (recipes.length === 0) {
+        container.innerHTML = "<p style='grid-column: 1/-1; text-align:center;'>Belum ada resep yang tersedia.</p>";
+        return;
+      }
+
+      recipes.forEach(item => {
+        container.innerHTML += `
+          <div class="recipe-card">
+            <img src="${item.imageUrl}" alt="${item.name}">
+            <div class="recipe-card-body">
+              <h3>${item.name}</h3>
+              <p>${item.description}</p>
+              <button class="btn btn-primary" onclick="viewDetail('${item.id}')">Lihat Resep</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    window.handleSearch = function() {
+      const term = document.getElementById('search-input').value.toLowerCase();
+      const filtered = allRecipes.filter(r => 
+        r.name.toLowerCase().includes(term) || 
+        r.description.toLowerCase().includes(term)
+      );
+      renderHomeRecipes(filtered);
+    };
+
+    window.viewDetail = function(id) {
+      const recipe = allRecipes.find(r => r.id === id);
+      if(!recipe) return;
+
+      document.getElementById('detail-img').src = recipe.imageUrl;
+      document.getElementById('detail-title').innerText = recipe.name;
+      document.getElementById('detail-desc').innerText = recipe.description;
+
+      const ingUl = document.getElementById('detail-ingredients');
+      ingUl.innerHTML = recipe.ingredients.map(i => `<li>${i}</li>`).join('');
+
+      const stepsOl = document.getElementById('detail-steps');
+      stepsOl.innerHTML = recipe.steps.map(s => `<li>${s}</li>`).join('');
+
+      switchView('detail');
+    };
+
+    // --- ADMIN OPERATIONS (CRUD) ---
+    function renderAdminRecipes(recipes) {
+      const table = document.getElementById('admin-recipe-table');
+      table.innerHTML = "";
+
+      recipes.forEach(item => {
+        table.innerHTML += `
+          <tr>
+            <td><img src="${item.imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;"></td>
+            <td><b>${item.name}</b></td>
+            <td>${item.description.substring(0, 40)}...</td>
+            <td>
+              <button class="btn btn-outline btn-sm" onclick="editRecipe('${item.id}')"><i class="fa-solid fa-pen"></i> Edit</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteRecipe('${item.id}')"><i class="fa-solid fa-trash"></i> Hapus</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    window.openRecipeForm = function(isEdit = false) {
+      if(currentUserRole !== 'admin') {
+        showAlert("Akses ditolak. Khusus Administrator.");
+        return;
+      }
+
+      document.getElementById('form-recipe').reset();
+      document.getElementById('recipe-id').value = "";
+      document.getElementById('ingredients-list').innerHTML = "";
+      document.getElementById('steps-list').innerHTML = "";
+
+      if(!isEdit) {
+        document.getElementById('form-recipe-title').innerText = "Tambah Resep Baru";
+        addIngredientInput();
+        addStepInput();
+      } else {
+        document.getElementById('form-recipe-title').innerText = "Edit Resep";
+      }
+
+      switchView('recipe-form');
+    };
+
+    // Dynamic Form Elements
+    window.addIngredientInput = function(val = "") {
+      const div = document.createElement('div');
+      div.className = "dynamic-list-item";
+      div.innerHTML = `
+        <input type="text" class="ingredient-input" required value="${val}" placeholder="Bahan...">
+        <button type="button" class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">X</button>
+      `;
+      document.getElementById('ingredients-list').appendChild(div);
+    };
+
+    window.addStepInput = function(val = "") {
+      const div = document.createElement('div');
+      div.className = "dynamic-list-item";
+      div.innerHTML = `
+        <input type="text" class="step-input" required value="${val}" placeholder="Langkah pembuatan...">
+        <button type="button" class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">X</button>
+      `;
+      document.getElementById('steps-list').appendChild(div);
+    };
+
+    // Save Data (Create & Update)
+    document.getElementById('form-recipe').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (currentUserRole !== 'admin') return showAlert("Akses Ditolak!");
+
+      const recipeId = document.getElementById('recipe-id').value;
+      const name = document.getElementById('recipe-name').value;
+      const imageUrl = document.getElementById('recipe-image').value;
+      const description = document.getElementById('recipe-desc').value;
+
+      const ingredients = Array.from(document.querySelectorAll('.ingredient-input'))
+                               .map(input => input.value.trim())
+                               .filter(val => val !== "");
+
+      const steps = Array.from(document.querySelectorAll('.step-input'))
+                         .map(input => input.value.trim())
+                         .filter(val => val !== "");
+
+      const payload = {
+        name,
+        imageUrl,
+        description,
+        ingredients,
+        steps,
+        updatedAt: serverTimestamp()
+      };
+
+      try {
+        if (recipeId) {
+          // Update
+          await updateDoc(doc(db, "recipes", recipeId), payload);
+          showAlert("Resep berhasil diperbarui!", "success");
+        } else {
+          // Create
+          payload.createdAt = serverTimestamp();
+          payload.createdBy = currentUser.uid;
+          await addDoc(collection(db, "recipes"), payload);
+          showAlert("Resep berhasil ditambahkan!", "success");
+        }
+
+        fetchRecipes();
+        switchView('admin');
+      } catch (err) {
+        showAlert("Gagal menyimpan resep: " + err.message);
+      }
+    });
+
+    window.editRecipe = function(id) {
+      const recipe = allRecipes.find(r => r.id === id);
+      if(!recipe) return;
+
+      openRecipeForm(true);
+
+      document.getElementById('recipe-id').value = recipe.id;
+      document.getElementById('recipe-name').value = recipe.name;
+      document.getElementById('recipe-image').value = recipe.imageUrl;
+      document.getElementById('recipe-desc').value = recipe.description;
+
+      recipe.ingredients.forEach(i => addIngredientInput(i));
+      recipe.steps.forEach(s => addStepInput(s));
+    };
+
+    window.deleteRecipe = async function(id) {
+      if (currentUserRole !== 'admin') return showAlert("Akses Ditolak!");
+
+      if (confirm("Apakah Anda yakin ingin menghapus resep ini?")) {
+        try {
+          await deleteDoc(doc(db, "recipes", id));
+          showAlert("Resep berhasil dihapus.", "success");
+          fetchRecipes();
+        } catch (err) {
+          showAlert("Gagal menghapus resep: " + err.message);
+        }
+      }
+    };
+  </script>
+</body>
+</html>
