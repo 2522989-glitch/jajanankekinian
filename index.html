@@ -261,16 +261,6 @@
       .navbar { flex-direction: column; gap: 10px; }
       .hero h1 { font-size: 1.8rem; }
     }
-   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDF-lP1aBX0-aRPCJJqhdMcjLuFctmwtjY",
-  authDomain: "resep-jajanan-kekinian-169ea.firebaseapp.com",
-  projectId: "resep-jajanan-kekinian-169ea",
-  storageBucket: "resep-jajanan-kekinian-169ea.firebasestorage.app",
-  messagingSenderId: "1035498029266",
-  appId: "1:1035498029266:web:7aff8d9b57befeeaee6d0b",
-  measurementId: "G-HY6HC82JED"
-}; 
   </style>
 </head>
 <body>
@@ -420,7 +410,7 @@ const firebaseConfig = {
   <!-- FOOTER -->
   <footer>
     <p>&copy; 2026 Resep Jajanan Kekinian. All rights reserved.</p>
-    <!-- Link Tersembunyi Admin sesuai Spesifikasi -->
+
     <a href="#" class="footer-admin-link" onclick="openAdminLogin(event)">Admin Portal Access</a>
   </footer>
 
@@ -449,15 +439,16 @@ const firebaseConfig = {
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     // -------------------------------------------------------------
-    // KONFIGURASI FIREBASE (Ubah dengan kredensial Firebase Anda)
+    // KONFIGURASI FIREBASE ANDA (TELAH DIGABUNGKAN)
     // -------------------------------------------------------------
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      apiKey: "AIzaSyDF-lP1aBX0-aRPCJJqhdMcjLuFctmwtjY",
+      authDomain: "resep-jajanan-kekinian-169ea.firebaseapp.com",
+      projectId: "resep-jajanan-kekinian-169ea",
+      storageBucket: "resep-jajanan-kekinian-169ea.firebasestorage.app",
+      messagingSenderId: "1035498029266",
+      appId: "1:1035498029266:web:7aff8d9b57befeeaee6d0b",
+      measurementId: "G-HY6HC82JED"
     };
 
     // Inisialisasi Firebase
@@ -575,7 +566,6 @@ const firebaseConfig = {
     async function fetchRecipes() {
       const loading = document.getElementById('loading-home');
       const container = document.getElementById('recipe-container');
-      const adminTable = document.getElementById('admin-recipe-table');
 
       if (loading) loading.style.display = 'block';
 
